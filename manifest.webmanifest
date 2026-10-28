@@ -1,0 +1,9 @@
+{
+  "name": "Gow/theFlow Chat",
+  "short_name": "Gow Chat",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#f7f8fa",
+  "description": "Simple messaging with 12-hour message expiry."
+}

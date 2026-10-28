@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="Gow/theFlow Chat — simple conversations that expire after 12 hours.">
+  <title>Gow/theFlow Chat</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand-mark">g<span>·</span>f</div>
+      <div class="brand-copy"><h1>Gow/theFlow Chat</h1><p>Keep it flowing.</p></div>
+      <button id="signoutBtn" class="quiet hidden">Sign out</button>
+    </header>
+
+    <section id="authPanel" class="auth-card">
+      <p class="eyebrow">A little less permanent</p>
+      <h2>Good conversations, lighter footprints.</h2>
+      <p class="muted">Sign in or create an account. Messages expire after 12 hours.</p>
+      <form id="authForm">
+        <label>Email <input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+        <label>Password <input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="At least 6 characters"></label>
+        <label id="usernameWrap" class="hidden">Display name <input id="displayName" maxlength="40" placeholder="What should people call you?"></label>
+        <div class="button-row">
+          <button type="submit" id="loginBtn">Sign in</button>
+          <button type="button" id="showSignupBtn" class="secondary">Create account</button>
+        </div>
+        <p id="authNote" class="note" aria-live="polite">New accounts may need to confirm their email, depending on your Supabase settings.</p>
+      </form>
+    </section>
+
+    <section id="appPanel" class="app-layout hidden">
+      <aside class="sidebar">
+        <div class="section-heading"><h2>People</h2><span class="online-dot"></span></div>
+        <label class="search-label">Find people<input id="peopleSearch" placeholder="Search by name or email"></label>
+        <p class="muted tiny">Choose someone to start a private chat.</p>
+        <div id="peopleList" class="people-list"></div>
+        <div class="sidebar-foot">Messages disappear 12 hours after sending.</div>
+      </aside>
+
+      <section class="chat-area">
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">↗</div><h2>Start a conversation</h2>
+          <p>Choose someone from the People list.</p>
+        </div>
+        <div id="conversation" class="conversation hidden">
+          <header class="chat-header">
+            <div class="avatar" id="chatAvatar">?</div>
+            <div class="chat-title"><h2 id="chatName">Conversation</h2><p id="chatStatus">Messages expire after 12 hours</p></div>
+            <div class="call-actions">
+              <button id="voiceCallBtn" class="icon-btn" title="Start voice call" aria-label="Start voice call">☎</button>
+              <button id="videoCallBtn" class="icon-btn" title="Start video call" aria-label="Start video call">▣</button>
+            </div>
+          </header>
+          <div id="callPanel" class="call-panel hidden">
+            <div class="call-top"><strong id="callStatus">Calling…</strong><button id="hangupBtn" class="danger small">Hang up</button></div>
+            <div class="video-grid"><video id="remoteVideo" autoplay playsinline></video><video id="localVideo" autoplay muted playsinline></video></div>
+            <audio id="remoteAudio" autoplay></audio>
+          </div>
+          <div id="messages" class="messages" aria-live="polite"></div>
+          <form id="composer" class="composer">
+            <label class="attach-btn" title="Add a photo or video">＋<input id="mediaInput" type="file" accept="image/*,video/*" capture="environment" hidden></label>
+            <input id="messageInput" maxlength="4000" autocomplete="off" placeholder="Write a message…" aria-label="Message">
+            <button type="submit" id="sendBtn">Send</button>
+          </form>
+          <p class="composer-hint">Photos and videos are also removed when their message expires. Avoid sharing anything highly sensitive.</p>
+        </div>
+      </section>
+    </section>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <footer class="footer">Gow/theFlow Chat · Built for the web · <span>12-hour expiry</span></footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
